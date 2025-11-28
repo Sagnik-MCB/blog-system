@@ -23,6 +23,12 @@ Route::get('/', function () {
 
 // Public posts listing and viewing
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+// Post create route must be defined BEFORE the slug route to avoid conflicts
+Route::middleware(['auth', 'verified', 'log.activity'])->group(function () {
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+});
+
 Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
 /*
@@ -62,7 +68,7 @@ Route::middleware(['auth', 'verified', 'log.activity'])->group(function () {
     Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my-posts');
 
     // Post CRUD (for authenticated users)
-    Route::resource('posts', PostController::class)->except(['index', 'show']);
+    Route::resource('posts', PostController::class)->except(['index', 'show', 'create']);
     
     // Post restore and force delete
     Route::post('/posts/{post}/restore', [PostController::class, 'restore'])

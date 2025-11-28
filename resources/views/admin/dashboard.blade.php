@@ -69,7 +69,9 @@
         <!-- Posts Chart -->
         <div class="bg-white rounded-xl shadow-sm p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Posts Activity (Last 30 Days)</h3>
-            <canvas id="postsChart" height="200"></canvas>
+            <div style="height: 250px; position: relative;">
+                <canvas id="postsChart"></canvas>
+            </div>
         </div>
 
         <!-- Popular Posts -->
@@ -164,7 +166,7 @@
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
                         display: false

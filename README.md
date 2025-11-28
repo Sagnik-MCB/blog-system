@@ -87,7 +87,7 @@ A comprehensive blog application built with Laravel, featuring user authenticati
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/blog-system.git
+git clone https://github.com/Sagnik-MCB/blog-system.git
 cd blog-system
 ```
 

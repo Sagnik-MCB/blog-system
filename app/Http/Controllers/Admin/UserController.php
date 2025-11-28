@@ -21,21 +21,27 @@ class UserController extends Controller
         $query = User::with('roles');
 
         // Search functionality
-        if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+        $searchTerm = $request->query('search');
+        if (!empty($searchTerm)) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%{$searchTerm}%")
+                  ->orWhere('email', 'like', "%{$searchTerm}%");
             });
         }
 
-        // Filter by role
-        if ($role = $request->get('role')) {
-            $query->role($role);
+        // Filter by role - using join approach for reliability
+        $roleName = $request->query('role');
+        if (!empty($roleName)) {
+            $query->whereHas('roles', function ($q) use ($roleName) {
+                $q->where('name', '=', $roleName);
+            });
         }
 
         // Filter by status
-        if ($request->has('status')) {
-            $query->where('is_active', $request->get('status') === 'active');
+        $statusFilter = $request->query('status');
+        if (!empty($statusFilter)) {
+            $isActive = ($statusFilter === 'active');
+            $query->where('is_active', $isActive);
         }
 
         $users = $query->latest()->paginate(15)->withQueryString();
