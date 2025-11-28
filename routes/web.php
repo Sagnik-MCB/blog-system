@@ -116,10 +116,16 @@ Route::middleware(['auth', 'verified', 'role:admin', 'log.activity'])
 
         // Comment Management
         Route::get('/comments', [AdminCommentController::class, 'index'])->name('comments.index');
-        Route::post('/comments/{comment}/approve', [AdminCommentController::class, 'approve'])->name('comments.approve');
-        Route::post('/comments/{comment}/reject', [AdminCommentController::class, 'reject'])->name('comments.reject');
+        Route::post('/comments/{comment}/approve', [AdminCommentController::class, 'approve'])
+            ->name('comments.approve')
+            ->withTrashed();
+        Route::post('/comments/{comment}/reject', [AdminCommentController::class, 'reject'])
+            ->name('comments.reject')
+            ->withTrashed();
         Route::post('/comments/bulk-approve', [AdminCommentController::class, 'bulkApprove'])->name('comments.bulk-approve');
-        Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('comments.destroy');
+        Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])
+            ->name('comments.destroy')
+            ->withTrashed();
         Route::post('/comments/{comment}/restore', [AdminCommentController::class, 'restore'])
             ->name('comments.restore')
             ->withTrashed();

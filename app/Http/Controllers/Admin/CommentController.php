@@ -16,7 +16,7 @@ class CommentController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Comment::with(['post', 'user'])->withTrashed();
+        $query = Comment::with(['post', 'user']);
 
         // Search functionality
         if ($search = $request->get('search')) {
