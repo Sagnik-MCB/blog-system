@@ -91,27 +91,35 @@ git clone https://github.com/Sagnik-MCB/blog-system.git
 cd blog-system
 ```
 
-### 2. Install PHP dependencies
+### 2. Set up PHP and Composer (MAMP users)
+
+If using MAMP, add PHP and Composer to your PATH:
+
+```bash
+echo 'export PATH="/Applications/MAMP/bin/php/php8.4.15/bin:/Applications/MAMP/bin/php:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+### 3. Install PHP dependencies
 
 ```bash
 composer install
 ```
 
-### 3. Install NPM dependencies
+### 4. Install NPM dependencies
 
 ```bash
 npm install
 npm run build
 ```
 
-### 4. Environment Setup
+### 5. Environment Setup
 
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-### 5. Configure Database
+### 6. Configure Database
 
 Edit `.env` file with your database credentials:
 
@@ -124,7 +132,7 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-### 6. Configure Social Login (Optional)
+### 7. Configure Social Login (Optional)
 
 Add these to your `.env` file:
 
@@ -140,20 +148,20 @@ FACEBOOK_CLIENT_SECRET=your-facebook-app-secret
 FACEBOOK_REDIRECT_URL=http://localhost:8000/auth/facebook/callback
 ```
 
-### 7. Run Migrations and Seeders
+### 8. Run Migrations and Seeders
 
 ```bash
 php artisan migrate
 php artisan db:seed
 ```
 
-### 8. Create Storage Link
+### 9. Create Storage Link
 
 ```bash
 php artisan storage:link
 ```
 
-### 9. Start the Development Server
+### 10. Start the Development Server
 
 ```bash
 php artisan serve
